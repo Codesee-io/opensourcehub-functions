@@ -33,7 +33,7 @@ export const userCreated = functions.auth.user().onCreate((user) => {
     .identify({
       userId: user.uid,
       traits: {
-        oshEmail: user.email,
+        email: user.email,
       },
     })
     .group({
@@ -79,7 +79,7 @@ export const onUserDocumentCreated = functions.firestore
       userId: context.params.userId,
       traits: {
         githubLogin: data.githubLogin,
-        oshEmail: data.email,
+        email: data.email,
       },
     });
 
