@@ -15,6 +15,10 @@ function getSegment() {
   return _segment;
 }
 
+function prefixEventName(name: string) {
+  return `OSH: ${name}`;
+}
+
 // https://firebase.google.com/docs/functions/typescript
 // https://firebase.google.com/docs/functions/auth-events
 // https://firebase.google.com/docs/functions/firestore-events
@@ -36,7 +40,7 @@ export const userCreated = functions.auth.user().onCreate((user) => {
     })
     .track({
       userId: user.uid,
-      event: "User created",
+      event: prefixEventName("User created"),
     });
 
   return Promise.resolve();
@@ -50,7 +54,7 @@ export const userDeleted = functions.auth.user().onDelete((user) => {
 
   getSegment().track({
     userId: user.uid,
-    event: "User deleted",
+    event: prefixEventName("User deleted"),
   });
 
   return Promise.resolve();
