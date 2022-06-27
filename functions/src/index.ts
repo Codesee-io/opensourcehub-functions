@@ -21,8 +21,6 @@ function getSegment() {
 
 // Note: trigger functions require a return value or promise
 
-const GROUP_ID = "opensourcehub" as const;
-
 /**
  * Called when a new user signs up with Firebase auth
  */
@@ -35,10 +33,6 @@ export const userCreated = functions.auth.user().onCreate((user) => {
       traits: {
         email: user.email,
       },
-    })
-    .group({
-      userId: user.uid,
-      groupId: GROUP_ID,
     })
     .track({
       userId: user.uid,
