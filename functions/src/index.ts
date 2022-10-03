@@ -78,6 +78,7 @@ export const onUserDocumentCreated = functions.firestore
       traits: {
         githubLogin: data.githubLogin,
         email: data.email,
+        isProjectMaintainer: data.isProjectMaintainer,
       },
     });
 
