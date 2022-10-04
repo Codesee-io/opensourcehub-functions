@@ -84,3 +84,29 @@ export const onUserDocumentCreated = functions.firestore
 
     return Promise.resolve();
   });
+
+/**
+ * Called when a document is updated in the "users" collection
+ */
+export const onUserDocumentUpdated = functions.firestore
+  .document(USERS_COLLECTION + "/{userId}")
+  .onUpdate((change, context) => {
+    functions.logger.info("User document created", {
+      uid: context.params.userId,
+    });
+    const before = change.before.data();
+    const after = change.after.data();
+
+    if (before.isProjectMaintainer !== after.isProjectMaintainer) {
+      getSegment().identify({
+        userId: context.params.userId,
+        traits: {
+          githubLogin: after.githubLogin,
+          email: after.email,
+          isProjectMaintainer: after.isProjectMaintainer,
+        },
+      });
+    }
+
+    return Promise.resolve();
+  });
