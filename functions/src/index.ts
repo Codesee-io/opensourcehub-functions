@@ -149,7 +149,7 @@ export const onProfileDocumentUpdated = functions.firestore
         userId,
         githubLogin: userDoc.githubLogin,
         email: userDoc.email,
-        isProjectMaintainer: after.isProjectMaintainer,
+        is_project_maintainer: after.isProjectMaintainer,
         send_me_osh_news: after.joinNewsletter ?? false,
       });
       getSegment().identify({
@@ -157,7 +157,7 @@ export const onProfileDocumentUpdated = functions.firestore
         traits: {
           githubLogin: userDoc.githubLogin,
           email: userDoc.email,
-          isProjectMaintainer: after.isProjectMaintainer,
+          is_project_maintainer: after.isProjectMaintainer,
           send_me_osh_news: after.joinNewsletter ?? false,
         },
       });
